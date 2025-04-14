@@ -1,0 +1,105 @@
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f4fc;
+  font-family: "Pretendard-Regular";
+  color: #3e2c41;
+}
+
+header {
+  background-color: #a678b4;
+  color: white;
+  padding: 40px;
+  position: relative;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 30px;
+  margin: 0;
+  font-weight: bold;
+}
+
+header .account {
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
+}
+
+header .account a {
+  color: #f9f9f9;
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header .account a:hover {
+  text-decoration: underline;
+}
+
+form {
+  max-width: 500px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 10px;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+label {
+  width: 120px;
+  font-weight: bold;
+  color: #3e2c41;
+  flex-shrink: 0;
+}
+
+input,
+select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #e8e4ec;
+  margin-left: 10px;
+}
+
+.gender-options {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  margin-left: 10px;
+}
+
+button[type="submit"] {
+  display: block;
+  width: 180px;
+  margin: 30px auto 0;
+  background-color: #7e57c2;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button[type="submit"]:hover {
+  background-color: #d9a5b3;
+}
