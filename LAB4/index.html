@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAS2109 MOVIE SITE</title>
+    <link rel="stylesheet" href="main.css" />
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let allMovies = [];
+        let currentList = [];
+        let renderCount = 0;
+        const STEP = 6;
+
+        function renderMovies(movieList, append = false) {
+          const container = document.getElementById("movie-list");
+          if (!append) container.innerHTML = "";
+
+          movieList.forEach((movie) => {
+            const card = document.createElement("div");
+            card.className = "movie-card";
+            card.innerHTML = `
+      <div class="movie-image">
+        <img src="${movie.poster_url || "default.jpg"}" alt="${movie.title}">
+        <div class="movie-overlay">
+          <p><strong>줄거리:</strong><br>${movie.overview}</p>
+        </div>
+      </div>
+
+      <div class="movie-info">
+        <h3 class="movie-title">${movie.title}</h3>
+        <p class="movie-date">📅 ${movie.release_date}</p>
+        <p class="movie-runtime">⌚ ${movie.runtime}분</p>
+        <p class="movie-tagline">💬 <em>${movie.tagline}</em></p>
+        <p class="movie-rating">⭐ ${movie.vote_average}</p>
+      </div>
+    `;
+            container.appendChild(card);
+          });
+        }
+
+        function addMore(list = currentList) {
+          const next = list.slice(renderCount, renderCount + STEP);
+          renderCount += STEP;
+          renderMovies(next, true);
+        }
+
+        function sortList(list, value) {
+          switch (value) {
+            case "vote_desc":
+              list.sort((a, b) => b.vote_average - a.vote_average);
+              break;
+            case "vote_asc":
+              list.sort((a, b) => a.vote_average - b.vote_average);
+              break;
+            case "date_desc":
+              list.sort(
+                (a, b) => new Date(b.release_date) - new Date(a.release_date)
+              );
+              break;
+            case "date_asc":
+              list.sort(
+                (a, b) => new Date(a.release_date) - new Date(b.release_date)
+              );
+              break;
+          }
+        }
+
+        function applyFilters() {
+          const keyword = document
+            .getElementById("search-input")
+            .value.trim()
+            .toLowerCase();
+          currentList = allMovies.filter((m) =>
+            m.title.toLowerCase().includes(keyword)
+          );
+          const value = document.querySelector(
+            "input[name='sort']:checked"
+          ).value;
+          sortList(currentList, value);
+          renderCount = 0;
+          document.getElementById("movie-list").innerHTML = "";
+          addMore();
+        }
+
+        fetch("product.json")
+          .then((res) => res.json())
+          .then((data) => {
+            allMovies = data;
+            currentList = [...allMovies];
+            sortList(currentList, "vote_desc");
+            addMore();
+          })
+          .catch(() => alert("영화 데이터를 불러오지 못했습니다."));
+
+        document
+          .getElementById("search-button")
+          .addEventListener("click", applyFilters);
+
+        document
+          .getElementById("search-input")
+          .addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              applyFilters();
+            }
+          });
+
+        document.querySelectorAll("input[name='sort']").forEach((radio) => {
+          radio.addEventListener("change", applyFilters);
+        });
+
+        window.addEventListener("scroll", () => {
+          if (
+            window.innerHeight + window.scrollY >=
+            document.body.offsetHeight - 100
+          ) {
+            addMore();
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <header>
+      <div class="text-wrapper">
+        <h1>CAS2109 MOVIE SITE</h1>
+      </div>
+      <nav>
+        <a href="index.html">Main</a>
+        <a href="login.html">Log In</a>
+        <a href="signup.html">Sign Up</a>
+      </nav>
+    </header>
+
+    <main id="main-container">
+      <div class="search-bar">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="키워드를 입력하세요."
+        />
+        <button id="search-button">Filter results</button>
+      </div>
+
+      <section class="movie-section">
+        <aside class="filter-box">
+          <h3>정렬 기준</h3>
+          <label
+            ><input type="radio" name="sort" value="vote_desc" checked /> 평점
+            내림차순</label
+          ><br />
+          <label
+            ><input type="radio" name="sort" value="vote_asc" /> 평점
+            오름차순</label
+          ><br />
+          <label
+            ><input type="radio" name="sort" value="date_desc" /> 개봉
+            내림차순</label
+          ><br />
+          <label
+            ><input type="radio" name="sort" value="date_asc" /> 개봉
+            오름차순</label
+          >
+        </aside>
+
+        <section id="movie-list"></section>
+      </section>
+    </main>
+  </body>
+</html>
