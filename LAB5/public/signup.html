@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <link rel="stylesheet" type="text/css" href="main.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="text-wrapper">
+        <h1>CAS2109 MOVIE SITE</h1>
+      </div>
+      <nav>
+        <a href="/">Main</a>
+        <a href="/login">Log In</a>
+        <a href="/signup">Sign Up</a>
+      </nav>
+    </header>
+
+    <!-- 입력 form -->
+    <form>
+      <div class="form-group">
+        <label for="name">이름</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          autocomplete="on"
+          autofocus
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="birth">생일</label>
+        <input type="date" id="birth" name="birth" required />
+      </div>
+
+      <div class="form-group">
+        <label>성별</label>
+        <div class="gender-options">
+          <input type="radio" id="male" name="gender" value="male" required />
+          <label for="male">남성</label>
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            value="female"
+            required
+          />
+          <label for="female">여성</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="grade">학년</label>
+        <input
+          type="number"
+          id="grade"
+          name="grade"
+          min="1"
+          max="4"
+          step="1"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="userid">아이디</label>
+        <input
+          type="text"
+          id="userid"
+          name="userid"
+          autocomplete="on"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">이메일</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="abc123@gmail.com"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="genre">선호 영화장르 :</label>
+        <select id="genre" name="genre" required>
+          <option value="">장르를 선택하세요</option>
+          <option value="action">액션</option>
+          <option value="comedy">코미디</option>
+          <option value="drama">드라마</option>
+          <option value="romance">로맨스</option>
+          <option value="thriller">스릴러</option>
+          <option value="horror">공포</option>
+          <option value="sci-fi">SF</option>
+          <option value="animation">애니메이션</option>
+          <option value="documentary">다큐멘터리</option>
+        </select>
+      </div>
+
+      <button type="submit">Sign Up</button>
+    </form>
+  </body>
+</html>
